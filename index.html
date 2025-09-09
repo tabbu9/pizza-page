@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pizza House</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: #fff8f0;
+      color: #333;
+    }
+    header {
+      background: #d62828;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    nav {
+      background: #f77f00;
+      padding: 0.5rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    .hero {
+      text-align: center;
+      padding: 2rem;
+      background: url('https://images.unsplash.com/photo-1601924582971-df6f9b5d1b8a') no-repeat center/cover;
+      color: white;
+    }
+    .hero h1 {
+      font-size: 3rem;
+      margin: 0;
+      text-shadow: 2px 2px 5px #000;
+    }
+    .menu {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem;
+    }
+    .pizza-card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 1rem;
+      text-align: center;
+    }
+    .pizza-card img {
+      max-width: 100%;
+      border-radius: 10px;
+    }
+    button {
+      background: #d62828;
+      color: white;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      margin-top: 0.5rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #9d0208;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #f77f00;
+      color: white;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🍕 Pizza House</h1>
+    <p>The best pizza in town!</p>
+  </header>
+
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">Menu</a>
+    <a href="#">Order</a>
+    <a href="#">Contact</a>
+  </nav>
+
+  <section class="hero">
+    <h1>Hot. Fresh. Delicious.</h1>
+    <p>Order your favorite pizza now!</p>
+  </section>
+
+  <section class="menu">
+    <div class="pizza-card">
+      <img src="https://images.unsplash.com/photo-1601924579620-836ba22c2f85" alt="Margherita Pizza">
+      <h3>Margherita</h3>
+      <p>Classic delight with fresh mozzarella and basil.</p>
+      <button onclick="orderPizza('Margherita')">Order Now</button>
+    </div>
+    <div class="pizza-card">
+      <img src="https://images.unsplash.com/photo-1601924928399-0609be98fba8" alt="Pepperoni Pizza">
+      <h3>Pepperoni</h3>
+      <p>Loaded with spicy pepperoni & cheese.</p>
+      <button onclick="orderPizza('Pepperoni')">Order Now</button>
+    </div>
+    <div class="pizza-card">
+      <img src="https://images.unsplash.com/photo-1603079842239-0f96708bc6e9" alt="Veggie Pizza">
+      <h3>Veggie</h3>
+      <p>A colorful mix of fresh vegetables and cheese.</p>
+      <button onclick="orderPizza('Veggie')">Order Now</button>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Pizza House. All rights reserved.</p>
+  </footer>
+
+  <script>
+    function orderPizza(pizzaName) {
+      alert(`You ordered a ${pizzaName} 🍕!`);
+    }
+  </script>
+</body>
+</html>

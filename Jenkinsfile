@@ -17,10 +17,20 @@ pipeline {
             steps {
                 script {
                     echo "Deploying Pizza Page to Tomcat..."
-                    // Clear old ROOT app
+
+                    // Make sure ROOT exists
+                    sh "sudo mkdir -p ${TOMCAT_HOME}/webapps/ROOT"
+
+                    // Clean old files
                     sh "sudo rm -rf ${TOMCAT_HOME}/webapps/ROOT/*"
-                    // Copy new files
-                    sh "sudo cp -r * ${TOMCAT_HOME}/webapps/ROOT/"
+
+                    // Copy only required files (ignore Jenkinsfile & README.md)
+                    sh """
+                        if [ -f index.html ]; then sudo cp index.html ${TOMCAT_HOME}/webapps/ROOT/; fi
+                        if [ -d css ]; then sudo cp -r css ${TOMCAT_HOME}/webapps/ROOT/; fi
+                        if [ -d js ]; then sudo cp -r js ${TOMCAT_HOME}/webapps/ROOT/; fi
+                        if [ -d images ]; then sudo cp -r images ${TOMCAT_HOME}/webapps/ROOT/; fi
+                    """
                 }
             }
         }

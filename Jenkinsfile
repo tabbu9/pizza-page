@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         GIT_REPO = 'https://github.com/tabbu9/pizza-page.git'
-        TOMCAT_HOME = '/opt/tomcat'
+        TOMCAT_HOME = '/opt/apache-tomcat-10.0.23'
     }
 
     stages {
@@ -24,7 +24,7 @@ pipeline {
                     // Clean old deployment
                     sh "sudo rm -rf ${TOMCAT_HOME}/webapps/ROOT/*"
 
-                    // Copy project files (ignore Jenkinsfile & README.md)
+                    // Copy only web assets
                     sh """
                         if [ -f index.html ]; then sudo cp index.html ${TOMCAT_HOME}/webapps/ROOT/; fi
                         if [ -d css ]; then sudo cp -r css ${TOMCAT_HOME}/webapps/ROOT/; fi
@@ -40,13 +40,9 @@ pipeline {
                 script {
                     echo "Restarting Tomcat..."
                     sh """
-                        # Stop Tomcat if running
-                        if [ -f ${TOMCAT_HOME}/bin/shutdown.sh ]; then
-                            sudo ${TOMCAT_HOME}/bin/shutdown.sh || true
-                        fi
-
-                        # Start Tomcat
-                        sudo ${TOMCAT_HOME}/bin/startup.sh
+                        cd ${TOMCAT_HOME}/bin
+                        ./shutdown.sh || true
+                        ./startup.sh
                     """
                 }
             }

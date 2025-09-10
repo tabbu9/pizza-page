@@ -18,13 +18,13 @@ pipeline {
                 script {
                     echo "Deploying Pizza Page to Tomcat..."
 
-                    // Make sure ROOT exists
+                    // Ensure ROOT exists
                     sh "sudo mkdir -p ${TOMCAT_HOME}/webapps/ROOT"
 
-                    // Clean old files
+                    // Clean old deployment
                     sh "sudo rm -rf ${TOMCAT_HOME}/webapps/ROOT/*"
 
-                    // Copy only required files (ignore Jenkinsfile & README.md)
+                    // Copy project files (ignore Jenkinsfile & README.md)
                     sh """
                         if [ -f index.html ]; then sudo cp index.html ${TOMCAT_HOME}/webapps/ROOT/; fi
                         if [ -d css ]; then sudo cp -r css ${TOMCAT_HOME}/webapps/ROOT/; fi
@@ -39,7 +39,15 @@ pipeline {
             steps {
                 script {
                     echo "Restarting Tomcat..."
-                    sh "sudo systemctl restart tomcat"
+                    sh """
+                        # Stop Tomcat if running
+                        if [ -f ${TOMCAT_HOME}/bin/shutdown.sh ]; then
+                            sudo ${TOMCAT_HOME}/bin/shutdown.sh || true
+                        fi
+
+                        # Start Tomcat
+                        sudo ${TOMCAT_HOME}/bin/startup.sh
+                    """
                 }
             }
         }
